@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('autoswapping', async ({ page }) => {
-  //await page.pause()
-
-
+test('visible_elements', async ({ page }) => {
   await page.goto('https://changenow.io/exchange');
   await expect(page.getByRole('heading')).toContainText('Please fill in transaction details');
   await expect(page.getByLabel('You Send')).toBeVisible();
@@ -13,17 +10,17 @@ test('autoswapping', async ({ page }) => {
   await expect(page.getByPlaceholder('Enter the ETH payout address')).toBeVisible();
   await expect(page.getByLabel("I've read and agree to the")).toBeChecked();
   await expect(page.getByRole('button', { name: 'Confirm' })).toBeVisible();
-  await page.waitForTimeout(2000);
+});
 
+test('autoswapping', async ({ page }) => {
+  await page.goto('https://changenow.io/exchange');
 
   await page.getByRole('button', { name: 'icon-btc BTC' }).click();
   await page.waitForTimeout(1000);
 
-
   await page.getByPlaceholder('Type a currency').fill('Solana');
   await page.getByPlaceholder('Type a currency').press('Enter');
   await page.waitForTimeout(1000);
-
 
   await page.getByRole('button', { name: 'icon-eth ETH' }).click();
   await page.getByPlaceholder('Type a currency').fill('Tether USD');
